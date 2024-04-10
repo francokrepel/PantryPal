@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Environment variables
-.env
+# # Environment variables
+# .env
 
 # Logs
 npm-debug.log*
