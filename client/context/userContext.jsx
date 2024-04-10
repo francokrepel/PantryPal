@@ -1,3 +1,4 @@
+// we are using context from react so the whole application can receive 
 import axios from 'axios'
 import { createContext, useState, useEffect } from 'react'
 
@@ -11,7 +12,7 @@ export function UserContextProvider({children}) {
                 setUser(data)
             }) 
         }
-    }, [])
+    }, [user]) // This effect will re-run if user changes
     // run all of our code that we want applied to whole application
     return (
         // were sending state down the application rather than up

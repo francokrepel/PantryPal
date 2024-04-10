@@ -61,10 +61,19 @@ const loginUser = async (req, res) => {
         if (passwordMatches) {
             /* create JSON token (cookie) to user to track them throughout app
             wt.sign signs token (so only we know whats going on, therefore we make secret for this sign) */
-            jwt.sign({email: user.email, id: user._id, name: user.name}, process.env.JWT_SECRET, {}, (err, token) => {
-                if (err) throw err
-                res.cookie('token', token).json(user) // sets a cookie in the client's browser named token and assigning it value of variable token
-            })
+            // jwt.sign({email: user.email, id: user._id, name: user.name}, process.env.JWT_SECRET, {}, (err, token) => {
+            //     if (err) throw err
+            //     res.cookie('token', token).json(user) // sets a cookie in the client's browser named token and assigning it value of variable token
+            // })
+            jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, {}, (err, token) => {
+                if (err) throw err;
+                res.cookie('token', token, {
+                    // httpOnly: true, // Protects against XSS
+                    // secure: true, // Ensure cookie is sent over HTTPS
+                    // sameSite: 'Lax', // CSRF protection
+                    // maxAge: 3600000 // Sets the expiration time of the cookie in milliseconds
+                }).json(user) // sets a cookie in the client's browser named token and assigning it the value of the variable token
+            });
         } else {
             res.json({
                 error: 'Incorrect password'
