@@ -8,9 +8,11 @@ import { Toaster } from 'react-hot-toast' // for notifications
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Dashboard from "./pages/Dashboard"
 import Navbar from './components/Navbar'
 
 import { UserContextProvider } from "../context/userContext"
+
 
 axios.defaults.baseURL = 'http://localhost:8000' // backend URL
 axios.defaults.withCredentials = true // make sure we can actually connect to localhost, giving us creds to work w it
@@ -27,6 +29,7 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
       </Routes>
       </UserContextProvider>
       </BrowserRouter>
