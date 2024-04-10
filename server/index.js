@@ -1,41 +1,24 @@
+const express = require('express')
 require('dotenv').config();
-const express = require("express")
-const mongoose = require("mongoose")
-const cors = require("cors")
-const UserModel = require("./model/user")
+const cors = require('cors') // CORS definesway for client web apps loaded in one domain to interact with resources in a different domain.
+const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 
 const app = express()
-app.use(express.json())
-app.use(cors())
 
+// connecting to db
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => console.log("MongoDB connected"))
-   .catch(err => console.error("MongoDB connection error:", err));
+   .catch(err => console.error("MongoDB connection error:", err))
 
+/* Middleware functions: in Express are functions that have access to the request object (req), the response object (res),
+ and the next middleware function in the application’s request-response cycle. They can execute any code, make changes to 
+ the request and response objects, end the request-response cycle, or call the next middleware function. */
+app.use(express.json()) // parses json data
+app.use(cookieParser())
+app.use(express.urlencoded({extended: false})) // configures middleware to parse application/x-www-form-urlencoded request bodies
 
-app.post("/login", (req, res) => {
-    const {email, password} = req.body;
-    UserModel.findOne({email : email})
-    .then(user => {
-        if(user) {
-            if(user.password === password){
-                res.json("Success")
-            }else{
-                res.json("The password is incorrect")
-            }
-        }else{
-            res.json("No record existed")
-        }
-    })
-})
+app.use('/', require('./routes/authRoutes')) // we want all routes to go through forward slash, in authRoutes we will define what actual route we want
 
-app.post("/register", (req, res) => {
-    UserModel.create(req.body)
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
-
-
-app.listen(3001, () => {
-    console.log("server is running")
-})
+const port = 8000
+app.listen(port, () => console.log(`server is running on port ${port}`))
