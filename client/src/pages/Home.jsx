@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ingredientsArray from "../data/ingredientArray";
 
 function Home() {
 
@@ -30,7 +31,13 @@ function Home() {
                         placeholder="Enter ingredients you have..."
                         value={ingredientInput}
                         onChange={(e) => setIngredientInput(e.target.value)}
+                        list="ingredients-list"
                         />
+                    <datalist id="ingredients-list">
+                        {ingredientsArray.map((ingredient, index) => (
+                            <option key={index} value={ingredient} />
+                        ))}
+                    </datalist>
                 </div>
                 <button className="btn btn-primary" onClick={addIngredient}>Add Ingredient</button>
             </div>
