@@ -4,6 +4,7 @@ import {toast} from 'react-hot-toast'
 import { useNavigate } from "react-router-dom";
 import { useContext} from 'react'
 import { UserContext } from '../../context/userContext'
+import './logreg.css';
 
 export default function Login() {
 
@@ -36,13 +37,21 @@ export default function Login() {
     }
 
     return (
-    <div>
+    <div class="wrapper">
         <form onSubmit={loginUser}>
-            <label>Email</label>
-            <input type='email' placeholder='enter email...' value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
-            <label>Password</label>
-            <input type='password' placeholder='enter password...' value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
+            <h1>Login</h1>
+            <div className="input-box">
+                <input type='email' placeholder='Email' required value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
+            </div>
+            <div className="input-box">
+                <input type='password' placeholder='Password' required value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
+            </div>
+
             <button type='submit'>Login</button>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="register">Register</a></p>
+            </div>
         </form>
     </div>
     )
