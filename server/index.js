@@ -19,6 +19,11 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended: false})) // configures middleware to parse application/x-www-form-urlencoded request bodies
 
 app.use('/', require('./routes/authRoutes')) // we want all routes to go through forward slash, in authRoutes we will define what actual route we want
+/*
+ your main server file (index.js), including recipeRoutes allows you to define a base path for all routes defined in the recipeRoutes router. 
+ In this case, /api. This means that any route defined in recipeRoutes.js will be prefixed with /api, so /recipes becomes /api/recipes.
+*/
+app.use('/api', require('./routes/recipeRoutes')); // Adding this line to include recipe routes
 
 const port = 8000
 app.listen(port, () => console.log(`server is running on port ${port}`))
