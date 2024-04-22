@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import ingredientsArray from '../data/ingredientArray';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import RecipeCard from '../components/RecipeCard';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 export default function Recipes() {
@@ -11,6 +10,23 @@ export default function Recipes() {
         ingredients: [],
         recipes: [],
     });
+
+    const clearIngredients = () => {
+        setData({
+            ...data,
+            ingredients: []
+        });
+    };
+
+    function removeIngredient(index) {
+        const newIngredients = data.ingredients.filter((_, idx) => idx !== index);
+    
+        setData({
+            ...data,
+            ingredients: newIngredients
+        });
+    }
+    
 
     const addIngredient = () => {
         const { ingredientInput, ingredients } = data;
@@ -39,57 +55,44 @@ export default function Recipes() {
             console.error('Failed to fetch recipes:', error);
         }
     };
-
     return (
-        <div>
-        <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Enter ingredients you have..."
-                value={data.ingredientInput}
-                onChange={(e) => setData({...data, ingredientInput: e.target.value})}
-                list="ingredients-list"
-            />
-            <datalist id="ingredients-list">
-                {ingredientsArray.map((ingredient, index) => (
-                    <option key={index} value={ingredient} />
-                ))}
-            </datalist>
-            <button className="btn btn-primary" onClick={addIngredient}>Add Ingredient</button>
-            <button className="btn btn-success ml-2" onClick={fetchRecipes}>Find Recipes</button>
-
-            <h3>Ingredients List</h3>
-            <ul className="list-unstyled">
+        <div className="p-4">
+            <div className='mt-[6px] w-full flex flex-col'> 
+                <h1 className='md:text-7xl sm:text-6xl text-5xl font-bold md:py-6 pb-6'>so whats in your kitchen?</h1>
+            </div>
+            <div className="flex items-center mb-2">
+                <input
+                    type="text"
+                    className="form-control flex-1"
+                    placeholder="Enter ingredients you have..."
+                    value={data.ingredientInput}
+                    onChange={(e) => setData({...data, ingredientInput: e.target.value})}
+                    list="ingredients-list"
+                />
+                <datalist id="ingredients-list">
+                    {ingredientsArray.map((ingredient, index) => (
+                        <option key={index} value={ingredient} />
+                    ))}
+                </datalist>
+                <button className="btn btn-primary ml-2" onClick={addIngredient}>Add</button>
+                <button className="btn btn-success ml-2" onClick={fetchRecipes}>Find Recipes</button>
+                <button className="btn btn-danger ml-2" onClick={clearIngredients}>Clear All</button>
+            </div>
+            <div className="flex flex-wrap gap-2 mb-4">
                 {data.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
+                    <div key={index} className="bg-[#a1d2b5] text-gray-900 rounded-full px-3 py-1 flex items-center">
+                        {ingredient}
+                        <button className="ml-2 text-red-500" onClick={() => removeIngredient(index)}>-</button>
+                    </div>
                 ))}
-            </ul>
-
-            {data.recipes.length > 0 && (
-                <div className="d-flex flex-wrap justify-content-start">
-                    {data.recipes.map((recipe, index) => (
-                        <Card key={index} style={{ width: '18rem', margin: '10px' }}>
-                            <Card.Img variant="top" src={recipe.image} />
-                            <Card.Body>
-                                <Card.Title>{recipe.title}</Card.Title>
-                                <Card.Text>
-                                    Likes: {recipe.likes}
-                                    <br />
-                                    Missed Ingredients: {recipe.missedIngredientCount}
-                                    <ul>
-                                        {recipe.missedIngredients.map((ingredient, idx) => (
-                                            <li key={idx}>
-                                                {ingredient.name} ({ingredient.amount} {ingredient.unitLong})
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </Card.Text>
-                                <Button variant="primary">View Recipe</Button>
-                            </Card.Body>
-                        </Card>
+            </div>
+            <div className='w-full py-5 px-4'>
+                <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
+                    {data.recipes.length > 0 && data.recipes.map((recipe, index) => (
+                        <RecipeCard key={index} recipe={recipe} />
                     ))}
                 </div>
-            )}
+            </div>
         </div>
-    )
+    );
 }

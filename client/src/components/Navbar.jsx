@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useState, useEffect} from 'react';
 
 export default function Navbar() {
@@ -24,13 +23,20 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`sticky top-0 flex justify-between items-center h-24 max-w mx-auto px-4 text-[#1A4D2E] transition-colors duration-700 ${isScrolled ? ' text-[#EBE9E1] bg-[#1A4D2E]' : ''}`}>
+    <nav className={`sticky top-0 z-50 flex justify-between items-center h-24 max-w mx-auto px-4 text-[#1A4D2E] transition-colors duration-700 ${isScrolled ? ' text-[#EBE9E1] bg-[#1A4D2E]' : ''}`}>
       <Link className='w-full text-4xl' to='/'>Pantry<b>Pal</b></Link>
       <ul className='flex'>
         <Link className='p-4 font-bold' to='/login'>Login</Link>   
         <Link className='p-4 font-bold' to='/recipes'>Recipes</Link>
         <Link className='p-4 font-bold' to='/dashboard'>Dashboard</Link>
       </ul>
+    </nav>
+  );
+}
+
+
+
+
 {/*  */}
       {/* <div onClick={handleNav}> */}
         {/* {!nav ?<AiOutlineClose size={20}/> : <AiOutlineMenu size={20}/>} */}
@@ -45,7 +51,3 @@ export default function Navbar() {
           {/* <li className='p-4 border-b border-gray-600' to='/dashboard'>Dashboard</li> */}
         {/* </ul>  */}
       {/* </div> */}
-    </nav>
-  );
-}
-

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import RecipeCard from '../components/RecipeCard'
 import { ReactTyped } from "react-typed";
 
-function Home() {
+export default function Home() {
 
 return (
-    <div className="font-bold text-[#1A4D2E] pt-5">
-        <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center items-center'> 
+    <div className="font-bold text-[#1A4D2E]">
+        <div className='max-w-[800px] mt-[24px] w-full h-screen mx-auto text-center flex flex-col justify-center items-center'> 
             <p className='text-2xl font-bold p-2'>Cook delicious meals</p>
             <h1 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>with whats in your fridge.</h1>
             <div className='flex justify-center items-center'>
@@ -24,5 +25,3 @@ return (
 );
 
 }
-
-export default Home;
