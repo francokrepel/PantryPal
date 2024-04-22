@@ -36,16 +36,96 @@ export default function Register() {
         }
     }
     return (
-        <div>
-            <form onSubmit={registerUser}> {/* sets it as function */}
-                <label>Name</label>
-                <input type='text' placeholder='enter name...' value={data.name} onChange={(e) => setData({...data, name: e.target.value})}/> 
-                <label>Email</label>
-                <input type='email' placeholder='enter email...' value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
-                <label>Password</label>
-                <input type='password' placeholder='enter password...' value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
-                <button type='submit'>Sign Up</button>
+        <>
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              Register a new account
+            </h2>
+          </div>
+  
+          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form onSubmit={registerUser} className="space-y-6">
+                <div>
+                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                    Name
+                    </label>
+                    <div className="mt-2">
+                    <input
+                        type="text"
+                        placeholder='type in your name...'
+                        autoComplete="name"
+                        required value={data.name}
+                        onChange={(e) => setData({...data, name: e.target.value})}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                    </div>
+                </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                  Email address
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="email"
+                    placeholder='type in your email...'
+                    autoComplete="email"
+                    required value={data.email}
+                    onChange={(e) => setData({...data, email: e.target.value})}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+  
+              <div>
+                <div className="flex items-center justify-between">
+                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                    Password
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    type="password"
+                    placeholder="type in your password..."
+                    autoComplete="current-password"
+                    required value={data.password}
+                    onChange={(e) => setData({...data, password: e.target.value})}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+  
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-[#1A4D2E] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#4F6F52] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Sign Up
+                </button>
+              </div>
             </form>
+  
+            <p className="mt-10 text-center text-sm text-gray-500">
+              Already a member?{' '}
+              <a href="login" className="font-semibold leading-6 text-[#1A4D2E] hover:text-[#4F6F52]">
+                Login
+              </a>
+            </p>
+          </div>
         </div>
+      </>
     )
 }
+
+
+// <div>
+// <form onSubmit={registerUser}> {/* sets it as function */}
+//     <label>Name</label>
+//     <input type='text' placeholder='enter name...' value={data.name} onChange={(e) => setData({...data, name: e.target.value})}/> 
+//     <label>Email</label>
+//     <input type='email' placeholder='enter email...' value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
+//     <label>Password</label>
+//     <input type='password' placeholder='enter password...' value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
+//     <button type='submit'>Sign Up</button>
+// </form>
+// </div>

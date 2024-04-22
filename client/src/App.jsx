@@ -9,6 +9,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Dashboard from "./pages/Dashboard"
+import Recipes from "./pages/Recipes"
 import Navbar from './components/Navbar'
 import PrivateRoutes from "./components/PrivateRoutes"
 
@@ -24,10 +25,11 @@ function App() {
   return (
     <BrowserRouter>
       <UserContextProvider>
-        <Navbar />
+      <Navbar />
         <Toaster position='bottom-right' toastOptions={{duration: 2000}} />
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='/recipes' element={<Recipes/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route element={<PrivateRoutes />}> // https://medium.com/@chiragmehta900/creating-protected-routes-in-react-js-with-react-router-v6-28f3a3ac53d

@@ -1,98 +1,28 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import ingredientsArray from '../data/ingredientArray';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';  // Ensure Bootstrap CSS is imported
+import { ReactTyped } from "react-typed";
 
 function Home() {
-    const [data, setData] = useState({
-        ingredientInput: '',
-        ingredients: [],
-        recipes: [],
-    });
 
-    const addIngredient = () => {
-        const { ingredientInput, ingredients } = data;
-        if (ingredientInput.trim() !== '') {
-            setData({
-                ...data,
-                ingredients: [...ingredients, ingredientInput],
-                ingredientInput: ''
-            });
-        }
-    };
-
-    const fetchRecipes = async () => {
-        const { ingredients } = data;
-        try {
-            const response = await axios.get(`http://localhost:8000/api/recipes`, {
-                params: {
-                    ingredients: ingredients.join(',')
-                }
-            });
-            setData({
-                ...data,
-                recipes: response.data  // api returns array of recipes
-            });
-        } catch (error) {
-            console.error('Failed to fetch recipes:', error);
-        }
-    };
-
-    return (
-        <div className="container mt-5">
-            <h1>Welcome to PantryPal</h1>
-            <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Enter ingredients you have..."
-                value={data.ingredientInput}
-                onChange={(e) => setData({...data, ingredientInput: e.target.value})}
-                list="ingredients-list"
-            />
-            <datalist id="ingredients-list">
-                {ingredientsArray.map((ingredient, index) => (
-                    <option key={index} value={ingredient} />
-                ))}
-            </datalist>
-            <button className="btn btn-primary" onClick={addIngredient}>Add Ingredient</button>
-            <button className="btn btn-success ml-2" onClick={fetchRecipes}>Find Recipes</button>
-
-            <h3>Ingredients List</h3>
-            <ul className="list-unstyled">
-                {data.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                ))}
-            </ul>
-
-            {data.recipes.length > 0 && (
-                <div className="d-flex flex-wrap justify-content-start">
-                    {data.recipes.map((recipe, index) => (
-                        <Card key={index} style={{ width: '18rem', margin: '10px' }}>
-                            <Card.Img variant="top" src={recipe.image} />
-                            <Card.Body>
-                                <Card.Title>{recipe.title}</Card.Title>
-                                <Card.Text>
-                                    Likes: {recipe.likes}
-                                    <br />
-                                    Missed Ingredients: {recipe.missedIngredientCount}
-                                    <ul>
-                                        {recipe.missedIngredients.map((ingredient, idx) => (
-                                            <li key={idx}>
-                                                {ingredient.name} ({ingredient.amount} {ingredient.unitLong})
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </Card.Text>
-                                <Button variant="primary">View Recipe</Button>
-                            </Card.Body>
-                        </Card>
-                    ))}
-                </div>
-            )}
+return (
+    <div className="font-bold text-[#1A4D2E] pt-5">
+        <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center items-center'> 
+            <p className='text-2xl font-bold p-2'>Cook delicious meals</p>
+            <h1 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>with whats in your fridge.</h1>
+            <div className='flex justify-center items-center'>
+                <p className='md:text-5xl sm:text-4xl text-3xl font-bold py-4 mr-3'>
+                    I've got 
+                </p>
+                <ReactTyped className='md:text-5xl sm:text-4xl text-3xl font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)]' 
+                strings={['apples', 'bananas', 'oranges', 'beef', 'chicken', 'pork', 'lamb', 'cheese', 'milk', 'eggs', 'almonds', 'hazelnuts', 'peanuts', 'sesame seeds']} 
+                typeSpeed={90} backSpeed={140} loop/>
+            </div>
+            <a href="register" className="w-[200px] transition-colors duration-300 bg-[#1A4D2E] hover:bg-[#4F6F52] text-white font-bold my-5 py-4 rounded">
+                Let's get cookin'
+            </a>
         </div>
-    );
+    </div>
+);
+
 }
 
 export default Home;
