@@ -1,10 +1,11 @@
 import React from 'react';
+import { FaRegThumbsUp } from "react-icons/fa";
 
 function RecipeCard({ recipe }) {
     return (
-        <div className="w-full bg-white border border-gray-200 rounded-lg shadow hover:scale-105 duration-300">
+        <div className="w-full bg-white border border-gray-200 rounded-lg shadow hover:scale-105 duration-300 relative">
             <a href="#">
-                <img className="rounded w-full" src={recipe.image} alt="" />
+                <img className="rounded-t w-full" src={recipe.image} alt={recipe.title} />
             </a>
             <div className="p-5">
                 <a href="#">
@@ -18,9 +19,10 @@ function RecipeCard({ recipe }) {
                     ))}
                 </ul>
             </div>
-            {/* <a href="#" className="flex transition-colors duration-300 bg-[#1A4D2E] hover:bg-[#4F6F52] text-white font-bold my-5 py-4 rounded">
-                    Read more
-                </a> */}
+            <div className="absolute bottom-4 right-4 flex items-center space-x-2">
+                <FaRegThumbsUp />
+                <span>{recipe.likes}</span>
+            </div>
         </div>
     );
 }

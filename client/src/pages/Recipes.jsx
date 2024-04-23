@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ingredientsArray from '../data/ingredientArray';
 import RecipeCard from '../components/RecipeCard';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 export default function Recipes() {
     const [data, setData] = useState({

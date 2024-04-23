@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import RecipeCard from '../components/RecipeCard'
 import { ReactTyped } from "react-typed";
 
 export default function Home() {
@@ -17,7 +16,7 @@ return (
                 strings={['apples', 'bananas', 'oranges', 'beef', 'chicken', 'pork', 'lamb', 'cheese', 'milk', 'eggs', 'almonds', 'hazelnuts', 'peanuts', 'sesame seeds']} 
                 typeSpeed={90} backSpeed={140} loop/>
             </div>
-            <a href="register" className="w-[200px] transition-colors duration-300 bg-[#1A4D2E] hover:bg-[#4F6F52] text-white font-bold my-5 py-4 rounded">
+            <a href="recipes" className="w-[200px] transition-colors duration-300 bg-[#1A4D2E] hover:bg-[#4F6F52] text-white font-bold my-5 py-4 rounded">
                 Let's get cookin'
             </a>
         </div>
