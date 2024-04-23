@@ -7,13 +7,12 @@ function RecipeCard({ recipe }) {
             <a href="#">
                 <img className="rounded-t w-full" src={recipe.image} alt={recipe.title} />
             </a>
-            <div className="p-5">
+            <div className="p-3">
                 <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{recipe.title}</h5>
                 </a>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Likes: {recipe.likes}</p>
-                <p>Missed Ingredients: {recipe.missedIngredientCount}</p>
-                <ul>
+                <p className=''>Ingredients Missing: {recipe.missedIngredientCount}</p>
+                <ul className='list-disc pl-5'>
                     {recipe.missedIngredients.map((ingredient, idx) => (
                         <li key={idx}>{ingredient.name} ({ingredient.amount} {ingredient.unitLong})</li>
                     ))}
