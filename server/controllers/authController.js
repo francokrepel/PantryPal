@@ -65,7 +65,7 @@ const loginUser = async (req, res) => {
             //     if (err) throw err
             //     res.cookie('token', token).json(user) // sets a cookie in the client's browser named token and assigning it value of variable token
             // })
-            jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, {}, (err, token) => {
+            jwt.sign({ email: user.email, _id: user._id, name: user.name }, process.env.JWT_SECRET, {}, (err, token) => {
                 if (err) throw err;
                 res.cookie('token', token, {
                     // httpOnly: true, // Protects against XSS

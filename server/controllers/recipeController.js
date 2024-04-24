@@ -6,7 +6,7 @@ This involves sending a request over the network to an API that is not part of y
 */
 const axios = require('axios');
 
-exports.fetchRecipes = async (req, res) => {
+const fetchRecipes = async (req, res) => {
     const ingredients = req.query.ingredients;
     const apiKey = process.env.SPOONACULAR_API_KEY;
 
@@ -23,3 +23,29 @@ exports.fetchRecipes = async (req, res) => {
         res.status(500).send('Failed to fetch recipes');
     }
 };
+
+const recipesById = async (req, res) => {
+    const { recipeIds } = req.body;
+    const recipes = [];
+    try {
+        for (const id of recipeIds) {
+            console.log(id)
+            const request = await axios.get(`https://api.spoonacular.com/recipes/${id}/information`, {
+                params: { apiKey: process.env.SPOONACULAR_API_KEY }
+            })
+            recipes.push(request.data)
+        }
+        res.json(recipes);
+    } catch (error) {
+        console.error("Error fetching recipe details:", error);
+        res.status(500).json({ error: 'Failed to fetch recipe details' });
+    }
+};
+
+
+module.exports = {
+    fetchRecipes,
+    recipesById
+}
+
+

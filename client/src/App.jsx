@@ -29,11 +29,11 @@ function App() {
         <Toaster position='bottom-right' toastOptions={{duration: 2000}} />
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/recipes' element={<Recipes/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route element={<PrivateRoutes />}> // https://medium.com/@chiragmehta900/creating-protected-routes-in-react-js-with-react-router-v6-28f3a3ac53d
             <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path='/recipes' element={<Recipes/>}/>
           </Route>
         </Routes>
       </UserContextProvider>

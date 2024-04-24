@@ -23,7 +23,8 @@ app.use('/', require('./routes/authRoutes')) // we want all routes to go through
  your main server file (index.js), including recipeRoutes allows you to define a base path for all routes defined in the recipeRoutes router. 
  In this case, /api. This means that any route defined in recipeRoutes.js will be prefixed with /api, so /recipes becomes /api/recipes.
 */
-app.use('/api', require('./routes/recipeRoutes')); // Adding this line to include recipe routes
+app.use('/api', require('./routes/recipeRoutes')) // Adding this line to include recipe routes
+app.use('/user', require('./routes/userRoutes'))
 
 const port = 8000
 app.listen(port, () => console.log(`server is running on port ${port}`))

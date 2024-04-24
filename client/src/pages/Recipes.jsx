@@ -3,7 +3,14 @@ import axios from 'axios';
 import ingredientsArray from '../data/ingredientArray';
 import RecipeCard from '../components/RecipeCard';
 
+import { useContext} from 'react'
+import { UserContext } from '../../context/userContext'
+
 export default function Recipes() {
+
+    const {user} = useContext(UserContext)
+    console.log(user)
+    
     const [data, setData] = useState({
         ingredientInput: '',
         ingredients: [],
@@ -41,7 +48,7 @@ export default function Recipes() {
     const fetchRecipes = async () => {
         const { ingredients } = data;
         try {
-            const response = await axios.get(`http://localhost:8000/api/recipes`, {
+            const response = await axios.get('/api/recipes', {
                 params: {
                     ingredients: ingredients.join(',')
                 }
@@ -54,10 +61,12 @@ export default function Recipes() {
             console.error('Failed to fetch recipes:', error);
         }
     };
+
+
     return (
         <div className="p-4">
             <div className='mt-[6px] w-full flex flex-col'> 
-                <h1 className='md:text-7xl sm:text-6xl text-5xl font-bold md:py-6 pb-6'>so whats in your kitchen?</h1>
+                <h1 className='md:text-7xl sm:text-6xl text-5xl font-bold md:py-6 pb-6'>{!!user && (<h1>so {user.name}, whats in your kitchen?</h1>)}</h1>
             </div>
             <div className="flex items-center mb-2">
                 <input
@@ -87,9 +96,9 @@ export default function Recipes() {
             </div>
             <div className='w-full py-5 px-4'>
                 <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
-                    {data.recipes.length > 0 && data.recipes.map((recipe, index) => (
-                        <RecipeCard key={index} recipe={recipe} />
-                    ))}
+                {!!user && data.recipes && data.recipes.length > 0 && data.recipes.map((recipe, index) => (
+                    <RecipeCard key={index} recipe={recipe} userId={user._id} />
+                ))}
                 </div>
             </div>
         </div>
