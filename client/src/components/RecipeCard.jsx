@@ -5,7 +5,7 @@ import {toast} from 'react-hot-toast'
 
 
 function RecipeCard({ recipe, userId}) {
-    console.log(userId)
+    console.log(user)
 
     const handleFavorite = async (recipeId, userId) => {
         try {

@@ -66,7 +66,7 @@ export default function Recipes() {
     return (
         <div className="p-4">
             <div className='mt-[6px] w-full flex flex-col'> 
-                <h1 className='md:text-7xl sm:text-6xl text-5xl font-bold md:py-6 pb-6'>{!!user && (<h1>so {user.name}, whats in your kitchen?</h1>)}</h1>
+                <h1 className='md:text-7xl sm:text-6xl text-5xl font-bold md:py-6 pb-6'>{!!user && (<h1>so <span className='text-[#1A4D2E]'>{user.name}</span>, whats in your kitchen?</h1>)}</h1>
             </div>
             <div className="flex items-center mb-2">
                 <input
