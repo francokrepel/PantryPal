@@ -7,7 +7,8 @@ import RecipeCard from '../components/RecipeCard';
 export default function Dashboard() {
     const { user } = useContext(UserContext);
     const [data, setData] = useState({
-        recipes: []
+        recipes: [],
+        isLoading: true
     });
 
     const fetchFavorites = async () => {
@@ -21,7 +22,7 @@ export default function Dashboard() {
                 recipeIds : recipeIds
             });
 
-            setData({ ...data, recipes: recipeObjects.data });
+            setData({ ...data, recipes: recipeObjects.data, isLoading: false});
         } catch (error) {
             console.error('Failed to fetch favorited recipes:', error);
         }
@@ -32,6 +33,15 @@ export default function Dashboard() {
         fetchFavorites();
       }
     }, [user]);
+
+    if (data.isLoading) return (
+        <div className="font-bold text-[#1A4D2E]">
+            <div className='max-w-[800px] mt-[24px] w-full h-screen mx-auto text-center flex flex-col justify-center items-center'> 
+                <p className='text-2xl font-bold p-2'>Loading...</p>
+            </div>
+        </div>
+    )
+
 
     return (
         <div className="p-4">
