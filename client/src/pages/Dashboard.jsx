@@ -39,7 +39,7 @@ export default function Dashboard() {
             <div className='w-full py-5 px-4'>
                 <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
                     {!!user && data.recipes.length > 0 && (data.recipes.map((recipe, index) => (
-                        <RecipeCard key={index} recipe={recipe} userId={user._id} />
+                        <RecipeCard key={index} recipe={recipe} userId={user._id} inDashboard={true} />
                     )))}
                 </div>
                 <h2 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>{!!user && data.recipes.length == 0 &&(<h2> no favorites added yet <span className='text-[#1A4D2E]'>{user.name}</span>, browse recipes on the recipes page</h2>)}</h2>
