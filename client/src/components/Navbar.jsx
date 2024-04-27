@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 
 function clearJwtToken() {
@@ -9,18 +9,10 @@ const logoutUser = async () => {
   try {
     // Clear the JWT token (cookie) from the browser
     clearJwtToken();
-    location.reload()
-    // Clear the user state
-    setTimeout(() => {
-      window.location.href = '/';
-  }, 500)
+    location.reload() // Needs to reload page for the logout to actually work
 
-    // Display a success message
-
-    // Navigate the user to the home page
   } catch (error) {
     console.error('Error during logout:', error);
-    // Display an error message if necessary
     toast.error('Error during logout');
   }
 };
@@ -58,7 +50,7 @@ export default function Navbar() {
           </Link>
         )}
         {user && (
-          <Link className='p-4 font-bold' onClick={logoutUser} to='/'>
+          <Link className='p-4 font-bold' onClick={logoutUser} to='/login'>
             Logout
           </Link>
         )}
