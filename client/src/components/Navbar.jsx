@@ -1,38 +1,78 @@
-import { Link } from 'react-router-dom'
-import { useState, useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/userContext';
+
+function clearJwtToken() {
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+const logoutUser = async () => {
+  try {
+    // Clear the JWT token (cookie) from the browser
+    clearJwtToken();
+    location.reload()
+    // Clear the user state
+    setTimeout(() => {
+      window.location.href = '/';
+  }, 500)
+
+    // Display a success message
+
+    // Navigate the user to the home page
+  } catch (error) {
+    console.error('Error during logout:', error);
+    // Display an error message if necessary
+    toast.error('Error during logout');
+  }
+};
 
 export default function Navbar() {
-
+  const { user } = useContext(UserContext); // Access user info
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
-      if (offset > 100) { 
+      if (offset > 100) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     };
-    // register an event listener on the window object for the "scroll" event
+    // Register an event listener on the window object for the "scroll" event
     window.addEventListener('scroll', handleScroll);
     return () => {
-      // cleanup function removes event listener when it is no longer needed
+      // Cleanup function removes event listener when it is no longer needed
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
-    <nav className={`sticky top-0 z-50 flex justify-between items-center h-24 max-w mx-auto px-4 text-[#1A4D2E] transition-colors duration-700 ${isScrolled ? ' text-[#EBE9E1] bg-[#1A4D2E]' : ''}`}>
-      <Link className='w-full text-4xl' to='/'>Pantry<b>Pal</b></Link>
+    <nav className={`sticky top-0 z-50 flex justify-between items-center h-24 max-w mx-auto px-4 text-[#1A4D2E] transition-colors duration-700 ${isScrolled ? 'text-[#EBE9E1] bg-[#1A4D2E]' : ''}`}>
+      <Link className='w-full text-4xl' to='/'>
+        Pantry<b>Pal</b>
+      </Link>
       <ul className='flex'>
-        <Link className='p-4 font-bold' to='/login'>Login</Link>   
-        <Link className='p-4 font-bold' to='/recipes'>Recipes</Link>
-        <Link className='p-4 font-bold' to='/dashboard'>Dashboard</Link>
+        {!user && (
+          <Link className='p-4 font-bold' to='/login'>
+            Login
+          </Link>
+        )}
+        {user && (
+          <Link className='p-4 font-bold' onClick={logoutUser} to='/'>
+            Logout
+          </Link>
+        )}
+        <Link className='p-4 font-bold' to='/recipes'>
+          Recipes
+        </Link>
+        <Link className='p-4 font-bold' to='/dashboard'>
+          Dashboard
+        </Link>
       </ul>
     </nav>
   );
 }
+
 
 
 
