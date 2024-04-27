@@ -10,6 +10,8 @@ const logoutUser = async () => {
     // Clear the JWT token (cookie) from the browser
     clearJwtToken();
     location.reload() // Needs to reload page for the logout to actually work
+    window.location.href = '/';  // Sends back to home
+
 
   } catch (error) {
     console.error('Error during logout:', error);
@@ -50,7 +52,7 @@ export default function Navbar() {
           </Link>
         )}
         {user && (
-          <Link className='p-4 font-bold' onClick={logoutUser} to='/login'>
+          <Link className='p-4 font-bold' onClick={logoutUser}>
             Logout
           </Link>
         )}
