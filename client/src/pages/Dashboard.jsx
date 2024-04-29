@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
 import RecipeCard from '../components/RecipeCard';
 
 export default function Dashboard() {

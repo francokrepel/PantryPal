@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ingredientsArray from '../data/ingredientArray';
 import RecipeCard from '../components/RecipeCard';
+import { toast } from 'react-hot-toast';
+
 
 import { useContext} from 'react'
 import { UserContext } from '../../context/userContext'
@@ -82,6 +84,9 @@ export default function Recipes() {
                 ...data,
                 recipes: response.data.results  // api returns array of recipes
             });
+            if (data.recipes.length == 0) {
+                toast.error("No results found for your search")
+            }
         } catch (error) {
             console.error('Failed to fetch recipes:', error);
         }
