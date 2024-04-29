@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 function RecipeCard({ recipe, userId, inDashboard = false }) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
+    const [isHovered] = useState(false);
 
     const handleFavorite = async (recipeId, userId) => {
         try {
@@ -25,9 +25,6 @@ function RecipeCard({ recipe, userId, inDashboard = false }) {
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
-    };
-    const toggleHover = () => {
-        setIsHovered(!isHovered);
     };
 
     return (

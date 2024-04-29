@@ -144,7 +144,7 @@ export default function Recipes() {
                         ))}
                 </div>
                 <p className='text-2xl font-bold my-2'>Choose cuisines:</p>
-                <div className='whitespace-nowrap grid sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-3'>
+                <div className='my-2 whitespace-nowrap grid sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-3'>
                     {cuisineOptions.map(cuisine => (
                             <div key={cuisine} className="flex me-4 ">
                                 <input 
