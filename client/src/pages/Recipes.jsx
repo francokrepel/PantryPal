@@ -74,7 +74,7 @@ export default function Recipes() {
             const response = await axios.get('/api/complexRecipes', {
                 params: {
                     ingredients: ingredients.join(','),
-                    cuisine: Array.from(cuisines).join(','),
+                    cuisine: Array.from(cuisines).join('|'),
                     diet:Array.from(diets).join(',')
                 }
             });
