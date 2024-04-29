@@ -24,6 +24,36 @@ const fetchRecipes = async (req, res) => {
     }
 };
 
+const fetchRecipesComplex = async (req, res) => {
+    const ingredients = req.query.ingredients;
+    const cuisine = req.query.cuisine;
+    const diet = req.query.diet;
+    const intolerances = req.query.intolerances;
+
+    const apiKey = process.env.SPOONACULAR_API_KEY;
+
+    try {
+        const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch`, {
+            params: {
+                includeIngredients: ingredients,
+                cuisine: cuisine,
+                diet: diet,
+                intolerances: intolerances,
+                fillIngredients: true,  // information about used, missing, and unused ingredients
+                addRecipeInformation: true, 
+                addRecipeInstructions: true,
+                number: 10, 
+                apiKey: apiKey
+            }
+        });
+        res.json(response.data);
+    } catch (error) {
+        console.error('Failed to fetch recipes:', error);
+        res.status(500).send('Failed to fetch recipes');
+    }
+};
+
+
 const recipesById = async (req, res) => {
     const { recipeIds } = req.body;
     const recipes = [];
@@ -45,6 +75,7 @@ const recipesById = async (req, res) => {
 
 module.exports = {
     fetchRecipes,
+    fetchRecipesComplex,
     recipesById
 }
 
