@@ -14,8 +14,23 @@ export default function Recipes() {
     const [data, setData] = useState({
         ingredientInput: '',
         ingredients: [],
-        recipes: [],
+        cuisines: new Set(),
+        diets : new Set(),
+        recipes: []
     });
+
+    const toggleItem = (item, type) => {
+        const updatedSet = new Set(data[type]);
+        if (updatedSet.has(item)) {
+            updatedSet.delete(item);
+        } else {
+            updatedSet.add(item);
+        }
+        setData({
+            ...data,
+            [type]: updatedSet
+        });
+    };
 
     const clearIngredients = () => {
         setData({
@@ -46,22 +61,26 @@ export default function Recipes() {
     };
 
     const fetchRecipes = async () => {
-        const { ingredients } = data;
+        const { ingredients, cuisines, diets  } = data;
         try {
-            const response = await axios.get('/api/recipes', {
+            const response = await axios.get('/api/complexRecipes', {
                 params: {
-                    ingredients: ingredients.join(',')
+                    ingredients: ingredients.join(','),
+                    cuisine: Array.from(cuisines).join(','),
+                    diet:Array.from(diets).join(',')
                 }
             });
             setData({
                 ...data,
-                recipes: response.data  // api returns array of recipes
+                recipes: response.data.results  // api returns array of recipes
             });
         } catch (error) {
             console.error('Failed to fetch recipes:', error);
         }
     };
 
+    const cuisineOptions = ["African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern European", "European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korean", "Latin American", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"];
+    const dietOptions = ["Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian", "Ovo-Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal"];
 
     return (
         <div className="p-4">
@@ -94,6 +113,21 @@ export default function Recipes() {
                     </div>
                 ))}
             </div>
+            <div className='grid grid-cols-5 gap-4'>
+                {cuisineOptions.map(cuisine => (
+                        <div key={cuisine} className="flex items-center me-4">
+                            <input 
+                                id={`${cuisine}-checkbox`} 
+                                type="checkbox" 
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                checked={data.cuisines.has(cuisine)}
+                                onChange={() => toggleItem(cuisine, 'cuisines')}
+                            />
+                            <label htmlFor={`${cuisine}-checkbox`} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{cuisine}</label>
+                        </div>
+                    ))}
+            </div>
+  
             <div className='w-full py-5 px-4'>
                 <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
                 {!!user && data.recipes && data.recipes.length > 0 && data.recipes.map((recipe, index) => (
