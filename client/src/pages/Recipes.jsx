@@ -110,10 +110,21 @@ export default function Recipes() {
                     onChange={(e) => setData({...data, ingredientInput: e.target.value})}
                     list="ingredients-list"
                 />
-                <datalist id="ingredients-list">
+                {/* <datalist id="ingredients-list">
                     {ingredientsArray.map((ingredient, index) => (
                         <option key={index} value={ingredient} />
                     ))}
+                </datalist> */}
+                <datalist id="ingredients-list">
+                    {ingredientsArray
+                        .filter(ingredient => {
+                            const input = data.ingredientInput.toLowerCase();
+                            const lowerCaseIngredient = ingredient.toLowerCase();
+                            return lowerCaseIngredient.startsWith(input) || lowerCaseIngredient.includes(' ' + input);
+                        })
+                        .map((ingredient, index) => (
+                            <option key={index} value={ingredient} />
+                        ))}
                 </datalist>
                 <button className="btn btn-primary ml-2" onClick={addIngredient}>Add</button>
                 <button className="btn btn-success ml-2" onClick={fetchRecipes}>Find Recipes</button>
