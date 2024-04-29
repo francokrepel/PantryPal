@@ -41,6 +41,7 @@ const fetchRecipesComplex = async (req, res) => {
                 intolerances: intolerances,
                 fillIngredients: true,  // information about used, missing, and unused ingredients
                 addRecipeInformation: true, 
+                addRecipeInstructions: true,
                 number: 10, 
                 apiKey: apiKey
             }

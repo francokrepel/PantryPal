@@ -16,7 +16,8 @@ export default function Recipes() {
         ingredients: [],
         cuisines: new Set(),
         diets : new Set(),
-        recipes: []
+        recipes: [],
+        showAdvancedFilters: false
     });
 
     const toggleItem = (item, type) => {
@@ -29,6 +30,13 @@ export default function Recipes() {
         setData({
             ...data,
             [type]: updatedSet
+        });
+    };
+
+    const toggleAdvancedFilters = () => {
+        setData({
+            ...data,
+            showAdvancedFilters: !data.showAdvancedFilters
         });
     };
 
@@ -79,14 +87,15 @@ export default function Recipes() {
         }
     };
 
-    const cuisineOptions = ["African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern European", "European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korean", "Latin American", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"];
-    const dietOptions = ["Gluten Free", "Ketogenic", "Vegetarian", "Lacto-Vegetarian", "Ovo-Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal"];
+    const cuisineOptions = ["African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "European", "French", "German", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Thai", "Vietnamese"];
+    const dietOptions = ["Gluten Free", "Ketogenic", "Vegetarian", "Vegan", "Pescetarian", "Paleo", "Primal"];
 
     return (
         <div className="p-4">
             <div className='mt-[6px] w-full flex flex-col'> 
                 <h1 className='md:text-7xl sm:text-6xl text-5xl font-bold md:py-6 pb-6'>{!!user && (<h1>so <span className='text-[#1A4D2E]'>{user.name}</span>, whats in your kitchen?</h1>)}</h1>
             </div>
+            
             <div className="flex items-center mb-2">
                 <input
                     type="text"
@@ -113,26 +122,56 @@ export default function Recipes() {
                     </div>
                 ))}
             </div>
-            <div className='grid grid-cols-5 gap-4'>
-                {cuisineOptions.map(cuisine => (
-                        <div key={cuisine} className="flex items-center me-4">
-                            <input 
-                                id={`${cuisine}-checkbox`} 
-                                type="checkbox" 
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                checked={data.cuisines.has(cuisine)}
-                                onChange={() => toggleItem(cuisine, 'cuisines')}
-                            />
-                            <label htmlFor={`${cuisine}-checkbox`} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{cuisine}</label>
-                        </div>
-                    ))}
-            </div>
-  
+            <button className="text-lg font-semibold my-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" onClick={toggleAdvancedFilters}>
+                {data.showAdvancedFilters ? 'Hide Filters' : 'Show Filters'}
+            </button>
+            {data.showAdvancedFilters && 
+            (
+                <>
+                <p className='text-2xl font-bold my-2'>Choose your diets:</p>
+                <div className='my-2 whitespace-nowrap grid sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-3'>
+                    {dietOptions.map(diet => (
+                            <div key={diet} className="flex me-4">
+                                <input 
+                                    id={`${diet}-checkbox`} 
+                                    type="checkbox" 
+                                    className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    checked={data.diets.has(diet)}
+                                    onChange={() => toggleItem(diet, 'diets')}
+                                />
+                                <label htmlFor={`${diet}-checkbox`} className="ms-2 text-md font-medium text-gray-900 dark:text-gray-300">{diet}</label>
+                            </div>
+                        ))}
+                </div>
+                <p className='text-2xl font-bold my-2'>Choose cuisines:</p>
+                <div className='whitespace-nowrap grid sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-3'>
+                    {cuisineOptions.map(cuisine => (
+                            <div key={cuisine} className="flex me-4 ">
+                                <input 
+                                    id={`${cuisine}-checkbox`} 
+                                    type="checkbox" 
+                                    className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    checked={data.cuisines.has(cuisine)}
+                                    onChange={() => toggleItem(cuisine, 'cuisines')}
+                                />
+                                <label htmlFor={`${cuisine}-checkbox`} className="ms-2 text-md font-medium text-gray-900 dark:text-gray-300">{cuisine}</label>
+                            </div>
+                        ))}
+                </div>
+                </>
+            )}
             <div className='w-full py-5 px-4'>
+                {!!user && data.recipes && data.recipes.length == 0 && (
+                    <div className="font-bold text-[#1A4D2E]">
+                        <div className='max-w-[800px] mt-[24px] w-full mx-auto text-center flex flex-col justify-center items-center'> 
+                              <p className='text-2xl font-bold p-2'>Input your ingredients and filters to find results...</p>
+                          </div>
+                    </div>
+                )}
                 <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
-                {!!user && data.recipes && data.recipes.length > 0 && data.recipes.map((recipe, index) => (
-                    <RecipeCard key={index} recipe={recipe} userId={user._id} />
-                ))}
+                    {!!user && data.recipes && data.recipes.length > 0 && data.recipes.map((recipe, index) => (
+                        <RecipeCard key={index} recipe={recipe} userId={user._id} />
+                    ))}
                 </div>
             </div>
         </div>
