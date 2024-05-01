@@ -71,7 +71,9 @@ const loginUser = async (req, res) => {
                     httpOnly: true, // Protects against XSS
                     secure: true, // Ensure cookie is sent over HTTPS
                     sameSite: 'Lax', // CSRF protection
-                    maxAge: 3600000 // Sets the expiration time of the cookie in milliseconds
+                    maxAge: 3600000, // Sets the expiration time of the cookie in milliseconds
+                    domain: 'https://pantrypal-client-4t7p.onrender.com/',  // Specify your domain
+                    path: '/'
                 }).json(user) // sets a cookie in the client's browser named token and assigning it the value of the variable token
             });
         } else {
