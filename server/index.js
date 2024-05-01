@@ -10,13 +10,6 @@ const app = express()
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => console.log("MongoDB connected"))
    .catch(err => console.error("MongoDB connection error:", err))
-
-const corsOptions = {
-   origin: 'https://pantrypal-client-4t7p.onrender.com', // frontend's URL
-   credentials: true, // This allows cookies and credentials to be sent along with the request
-};
-
-app.use(cors(corsOptions));
   
 /* Middleware functions: in Express are functions that have access to the request object (req), the response object (res),
  and the next middleware function in the application’s request-response cycle. They can execute any code, make changes to 
@@ -24,7 +17,7 @@ app.use(cors(corsOptions));
 app.use(express.json()) // parses json data
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false})) // configures middleware to parse application/x-www-form-urlencoded request bodies
-
+app.set("trust proxy", 1);
 app.use('/', require('./routes/authRoutes')) // we want all routes to go through forward slash, in authRoutes we will define what actual route we want
 /*
  your main server file (index.js), including recipeRoutes allows you to define a base path for all routes defined in the recipeRoutes router. 
