@@ -26,5 +26,5 @@ app.use('/', require('./routes/authRoutes')) // we want all routes to go through
 app.use('/api', require('./routes/recipeRoutes')) // Adding this line to include recipe routes
 app.use('/user', require('./routes/userRoutes'))
 
-const port = 8000
+const port = process.env.PORT || 8000;  // Use the PORT environment variable, or 8000 if it's not set
 app.listen(port, () => console.log(`server is running on port ${port}`))
