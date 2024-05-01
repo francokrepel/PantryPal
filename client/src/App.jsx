@@ -16,7 +16,7 @@ import PrivateRoutes from "./components/PrivateRoutes"
 import { UserContextProvider } from "../context/userContext"
 
 
-axios.defaults.baseURL = 'http://localhost:8000' // backend URL
+axios.defaults.baseURL = 'https://pantrypal-uyid.onrender.com' // backend URL
 axios.defaults.withCredentials = true // make sure we can actually connect to localhost, giving us creds to work w it
 
 // we dont put static elements like Navbar, footer in routes, but we need parent element
