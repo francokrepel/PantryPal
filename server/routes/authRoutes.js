@@ -7,7 +7,8 @@ const { test, registerUser, loginUser, getProfile} = require('../controllers/aut
 router.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:5173'
+        // origin: 'http://localhost:5173'
+        origin: 'https://pantrypal-client-4t7p.onrender.com'
     })
 )
 
