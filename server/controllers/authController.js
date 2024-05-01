@@ -69,7 +69,7 @@ const loginUser = async (req, res) => {
                 if (err) throw err;
                 res.cookie('token', token, {
                     // httpOnly: true, // Protects against XSS
-                    // secure: true, // Ensure cookie is sent over HTTPS
+                    secure: true, // Ensure cookie is sent over HTTPS
                     // sameSite: 'Lax', // CSRF protection
                     // maxAge: 3600000 // Sets the expiration time of the cookie in milliseconds
                 }).json(user) // sets a cookie in the client's browser named token and assigning it the value of the variable token
