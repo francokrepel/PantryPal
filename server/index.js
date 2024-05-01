@@ -11,6 +11,13 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
    .then(() => console.log("MongoDB connected"))
    .catch(err => console.error("MongoDB connection error:", err))
 
+const corsOptions = {
+   origin: 'https://pantrypal-client-4t7p.onrender.com', // frontend's URL
+   credentials: true, // This allows cookies and credentials to be sent along with the request
+};
+
+app.use(cors(corsOptions));
+  
 /* Middleware functions: in Express are functions that have access to the request object (req), the response object (res),
  and the next middleware function in the application’s request-response cycle. They can execute any code, make changes to 
  the request and response objects, end the request-response cycle, or call the next middleware function. */
