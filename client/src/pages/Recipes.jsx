@@ -80,12 +80,13 @@ export default function Recipes() {
                     diet:Array.from(diets).join(',')
                 }
             });
-            setData({
-                ...data,
-                recipes: response.data.results  // api returns array of recipes
-            });
-            if (data.recipes.length == 0) {
-                toast.error("No results found for your search")
+            if (response.data.results.length === 0) {
+                toast.error("No results found for your search");
+            } else {
+                setData({
+                    ...data,
+                    recipes: response.data.results  // api returns array of recipes
+                });
             }
         } catch (error) {
             console.error('Failed to fetch recipes:', error);
