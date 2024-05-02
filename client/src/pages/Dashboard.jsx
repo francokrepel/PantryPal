@@ -51,7 +51,7 @@ export default function Dashboard() {
                         <RecipeCard key={index} recipe={recipe} userId={user._id} inDashboard={true} />
                     )))}
                 </div>
-                <h2 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>{!!user && data.recipes.length == 0 &&(<h2> no favorites added yet <span className='text-[#1A4D2E]'>{user.name}</span>, browse recipes on the recipes page</h2>)}</h2>
+                <h2 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6'>{!!user && data.recipes.length == 0 &&(<h2> No favorites added yet <span className='text-[#1A4D2E]'>{user.name}</span>, browse recipes on the recipes page</h2>)}</h2>
             </div>
         </div>
     );
