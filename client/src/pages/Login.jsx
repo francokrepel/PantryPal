@@ -25,6 +25,8 @@ export default function Login() {
             if (data.error) {
                 toast.error(data.error)
             } else {
+              //ONLY CHANGE IS THIS
+                localStorage.setItem('token', data.token);  // Store the token in local storage
                 setData({})
                 toast.success('Login Succesful')
                 setUser(data) // here we are changing the value of user, which will trigger useEffect to update user befor nav

@@ -75,6 +75,7 @@ const loginUser = async (req, res) => {
                     domain: 'https://pantrypal-client-4t7p.onrender.com',  // Specify your domain
                     path: '/'
                 }).json(user) // sets a cookie in the client's browser named token and assigning it the value of the variable token
+                res.json({ user, token})
             });
         } else {
             res.json({
